@@ -13,56 +13,26 @@ import random
 
 
 
-day_claim = int(input('nhập ví trên 1 Lần claim: '))
-
 
 #tạo người dugnf chrome
 options = Options()
-options.debugger_address="localhost:3333"
+options.debugger_address="127.0.0.1:3333"
 driver = webdriver.Chrome(options=options)
 
 
 
-#login metamask khi moi mo len
-driver.switch_to.window(driver.window_handles[0])
-driver.get('chrome-extension://nkbihfbeogaeaoehlefnkodbefgpgknn/home.html')
-wait = WebDriverWait(driver, 60).until(ec.presence_of_element_located((By.ID, "password")))
-driver.find_element("xpath",'//*[@id="password"]').send_keys("123123123")
-driver.find_element("xpath",'//*[@id="app-content"]/div/div[2]/div/div/button').click()
-time.sleep(2)
-
-#driver.switch_to.new_window()
-driver.switch_to.window(driver.window_handles[1])
-driver.get('https://cointool.app/batchMint/xen')
-
-time.sleep(5)
-
-#bật other
-wait2 = WebDriverWait(driver, 10).until(ec.presence_of_element_located((By.CSS_SELECTOR,'#app-main > div > div.card > div.panal > form > div:nth-child(1) > div:nth-child(2) > div > div > div > div > span.el-switch__core')))
-driver.find_element(By.CSS_SELECTOR,'#app-main > div > div.card > div.panal > form > div:nth-child(1) > div:nth-child(2) > div > div > div > div > span.el-switch__core').click()
-
-time.sleep(1)
-actions = ActionChains(driver) 
-actions.send_keys(Keys.TAB * 6 + Keys.BACKSPACE) # XOÁ maxclaim number
-actions.perform()
-time.sleep(1)
-
-
-#chỉnh maxclaim
-wait2 = WebDriverWait(driver, 10).until(ec.presence_of_element_located((By.CSS_SELECTOR,'#app-main > div > div.card > div.panal > form > div:nth-child(2) > div:nth-child(4) > div > div > div > div > input')))
-driver.find_element(By.CSS_SELECTOR,'#app-main > div > div.card > div.panal > form > div:nth-child(2) > div:nth-child(4) > div > div > div > div > input').send_keys(day_claim)
-
-
-
-
-
-
-input(' chờ load ví + chinh dclaim, enter để tiếp tục')
 
 
 
 for i in range(1,1000):
 	print(i)
+
+	if i == 1:
+		driver.switch_to.window(driver.window_handles[0])
+		driver.get('chrome-extension://nkbihfbeogaeaoehlefnkodbefgpgknn/home.html')
+	else:
+		pass
+
 	driver.switch_to.window(driver.window_handles[1])
 	time.sleep(5)
 
@@ -85,9 +55,9 @@ for i in range(1,1000):
 	wait2 = WebDriverWait(driver, 60).until(ec.presence_of_element_located((By.CSS_SELECTOR,'body > div.el-dialog__wrapper > div > div.el-dialog__body > div > div.dialog-footer > button.el-button.el-button--success.el-button--medium')))
 	driver.find_element(By.CSS_SELECTOR,'body > div.el-dialog__wrapper > div > div.el-dialog__body > div > div.dialog-footer > button.el-button.el-button--success.el-button--medium').click()
 
-	
 	driver.switch_to.window(driver.window_handles[0])
 	
+
 	#chuyển sang activity
 	wait2 = WebDriverWait(driver, 60).until(ec.presence_of_element_located(("xpath",'//*[@id="app-content"]/div/div[3]/div/div/div/div[2]/div/ul/li[3]/button')))
 	driver.find_element("xpath",'//*[@id="app-content"]/div/div[3]/div/div/div/div[2]/div/ul/li[3]/button').click()

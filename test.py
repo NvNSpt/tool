@@ -18,9 +18,7 @@ day_claim = int(input('nhập ví trên 1 Lần claim: '))
 
 #tạo người dugnf chrome
 options = Options()
-options.add_argument('--user-data-dir=C:\\Users\\pc\\AppData\\Local\\Google\\Chrome\\User Data')
-options.add_argument('--profile-directory=Profile 2')
-options.debugger_address="localhost:2222"
+options.debugger_address="localhost:3333"
 driver = webdriver.Chrome(options=options)
 
 

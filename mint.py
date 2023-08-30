@@ -83,12 +83,15 @@ for i in range(1,1000):
 
 	wait2 = WebDriverWait(driver, 20).until(ec.element_to_be_clickable(("xpath",'//*[@id="app-content"]/div/div[3]/div/div[3]/div[3]/footer/button[2]')))
 	driver.find_element("xpath",'//*[@id="app-content"]/div/div[3]/div/div[3]/div[3]/footer/button[2]').click() #confirm
-	time.sleep(5)
 	count = count + 1 
 
+	time.sleep(3)
+
+	wait2 = WebDriverWait(driver, 1000).until(ec.visibility_of_element_located(("xpath",'//*[@id="app-content"]/div/div[3]/div/div/div/div[2]/div/div/div/div/div[1]/div[2]/div[4]/div/button[1]')))
+	print('chờ xác nhận lệnh')
 	wait2 = WebDriverWait(driver, 1000).until(ec.invisibility_of_element_located(("xpath",'//*[@id="app-content"]/div/div[3]/div/div/div/div[2]/div/div/div/div/div[1]/div[2]/div[4]/div/button[1]')))
+	print('hoàn thành lệnh')
 	time.sleep(1)
-	
 
 	if i % 10 == 0:
 		driver.get('chrome-extension://nkbihfbeogaeaoehlefnkodbefgpgknn/home.html#settings/advanced')
