@@ -13,84 +13,49 @@ import random
 
 
 
+maxclaim = 1
+day_claim = 1
 
 #tạo người dugnf chrome
 options = Options()
-options.debugger_address="127.0.0.1:3333"
+options.debugger_address="127.0.0.1:2222"
 driver = webdriver.Chrome(options=options)
 
+driver.get('https://cointool.app/batchMint/xen')
 
+metamask_window = WebDriverWait(driver, 60).until(ec.number_of_windows_to_be(2))
+time.sleep(1)
+# Switch sang cửa sổ MetaMask
+driver.switch_to.window(driver.window_handles[metamask_window])
+driver.get('chrome-extension://nkbihfbeogaeaoehlefnkodbefgpgknn/home.html')
+wait = WebDriverWait(driver, 60).until(ec.visibility_of_element_located((By.ID, "password")))
+driver.find_element("xpath",'//*[@id="password"]').send_keys("123123123")
+driver.find_element("xpath",'//*[@id="app-content"]/div/div[2]/div/div/button').click()
+time.sleep(1)
 
+#chuyen ve cointoool
+driver.switch_to.window(driver.window_handles[0])
 
-
-
-for i in range(1,1000):
-	print(i)
-
-	if i == 1:
-		driver.switch_to.window(driver.window_handles[0])
-		driver.get('chrome-extension://nkbihfbeogaeaoehlefnkodbefgpgknn/home.html')
-	else:
-		pass
-
-	driver.switch_to.window(driver.window_handles[1])
-	time.sleep(5)
-
-	if i % 5 == 0:
-		
-		actions = ActionChains(driver) 
-		actions.send_keys(Keys.ESCAPE) # XOÁ maxclaim number
-		actions.perform()
-		time.sleep(1)
-
-	else: 
-		pass
-
-	#ấn claim
-	wait2 = WebDriverWait(driver, 1000).until(ec.presence_of_element_located((By.CSS_SELECTOR,'#app-main > div > div.resultBox > div.formBox > div:nth-child(3) > div:nth-child(2) > button')))
-	driver.find_element(By.CSS_SELECTOR,'#app-main > div > div.resultBox > div.formBox > div:nth-child(3) > div:nth-child(2) > button').click()
-	time.sleep(2)
+#chỉnh dayclaim
+wait2 = WebDriverWait(driver, 1000).until(ec.presence_of_element_located((By.CSS_SELECTOR,'#app-main > div > div.resultBox > div.formBox > div:nth-child(3) > div:nth-child(2) > button')))
+driver.find_element(By.CSS_SELECTOR,'#app-main > div > div.resultBox > div.formBox > div:nth-child(3) > div:nth-child(2) > button').click()
+time.sleep(1)
 	
-	#ấn confirm
-	wait2 = WebDriverWait(driver, 60).until(ec.presence_of_element_located((By.CSS_SELECTOR,'body > div.el-dialog__wrapper > div > div.el-dialog__body > div > div.dialog-footer > button.el-button.el-button--success.el-button--medium')))
-	driver.find_element(By.CSS_SELECTOR,'body > div.el-dialog__wrapper > div > div.el-dialog__body > div > div.dialog-footer > button.el-button.el-button--success.el-button--medium').click()
+dayclaim_element = driver.find_element(By.CSS_SELECTOR,'body > div.el-dialog__wrapper > div > div.el-dialog__body > div > form > div > div > div > div > input')
+WebDriverWait(driver, 60).until(ec.visibility_of(dayclaim_element))
+dayclaim_element.clear()
+dayclaim_element.send_keys(day_claim)
+time.sleep(1)
+wait2 = WebDriverWait(driver, 1000).until(ec.presence_of_element_located((By.CSS_SELECTOR,'body > div.el-dialog__wrapper > div > div.el-dialog__header > button')))
+driver.find_element(By.CSS_SELECTOR,'body > div.el-dialog__wrapper > div > div.el-dialog__header > button').click()
+time.sleep(1)
 
-	driver.switch_to.window(driver.window_handles[0])
-	
+#bật other
+wait2 = WebDriverWait(driver, 10).until(ec.visibility_of_element_located((By.CSS_SELECTOR,'#app-main > div > div.card > div.panal > form > div:nth-child(1) > div:nth-child(2) > div > div > div > div > span.el-switch__core')))
+driver.find_element(By.CSS_SELECTOR,'#app-main > div > div.card > div.panal > form > div:nth-child(1) > div:nth-child(2) > div > div > div > div > span.el-switch__core').click()
 
-	#chuyển sang activity
-	wait2 = WebDriverWait(driver, 60).until(ec.presence_of_element_located(("xpath",'//*[@id="app-content"]/div/div[3]/div/div/div/div[2]/div/ul/li[3]/button')))
-	driver.find_element("xpath",'//*[@id="app-content"]/div/div[3]/div/div/div/div[2]/div/ul/li[3]/button').click()
-
-	time.sleep(1)
-
-	#ấn contrackt
-	wait2 = WebDriverWait(driver, 1000).until(ec.visibility_of_element_located((By.CLASS_NAME,'transaction-list__pending-transactions')))
-	driver.find_element(By.CLASS_NAME,'list-item.transaction-list-item.transaction-list-item--unconfirmed').click()
-
-	time.sleep(2)
-
-	wait2 = WebDriverWait(driver, 20).until(ec.element_to_be_clickable(("xpath",'//*[@id="app-content"]/div/div[3]/div/div[3]/div[3]/footer/button[2]')))
-	driver.find_element("xpath",'//*[@id="app-content"]/div/div[3]/div/div[3]/div[3]/footer/button[2]').click() #confirm
-	time.sleep(5)
-
-	wait2 = WebDriverWait(driver, 1000).until(ec.invisibility_of_element_located(("xpath",'//*[@id="app-content"]/div/div[3]/div/div/div/div[2]/div/div/div/div/div[1]/div[2]/div[4]/div/button[1]')))
-	time.sleep(1)
-	
-	if i % 10 == 0:
-		driver.get('chrome-extension://nkbihfbeogaeaoehlefnkodbefgpgknn/home.html#settings/advanced')
-		time.sleep(1)
-		wait2 = WebDriverWait(driver, 20).until(ec.element_to_be_clickable(("xpath",'//*[@id="app-content"]/div/div[3]/div/div[2]/div[2]/div[2]/div[2]/div[2]/div/button')))
-		driver.find_element("xpath",'//*[@id="app-content"]/div/div[3]/div/div[2]/div[2]/div[2]/div[2]/div[2]/div/button').click() #clear active
-		time.sleep(1)
-		wait2 = WebDriverWait(driver, 20).until(ec.element_to_be_clickable(("xpath",'//*[@id="app-content"]/div/span/div[1]/div/div/div[2]/button[2]')))
-		driver.find_element("xpath",'//*[@id="app-content"]/div/span/div[1]/div/div/div[2]/button[2]').click() #clear
-		time.sleep(3)	
-		wait2 = WebDriverWait(driver, 20).until(ec.element_to_be_clickable(("xpath",'//*[@id="app-content"]/div/div[3]/div/div[1]/div/button')))
-		driver.find_element("xpath",'//*[@id="app-content"]/div/div[3]/div/div[1]/div/button').click() #x
-
-	else: 
-		pass
-
-input('done')
-
+#chỉnh maxclaim
+maxclaim_element = driver.find_element(By.CSS_SELECTOR,'#app-main > div > div.card > div.panal > form > div:nth-child(2) > div:nth-child(4) > div > div > div > div > input')
+WebDriverWait(driver, 10).until(ec.visibility_of(maxclaim_element))
+maxclaim_element.clear()
+maxclaim_element.send_keys(maxclaim)

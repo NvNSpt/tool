@@ -13,8 +13,8 @@ import random
 
 
 
-day_claim = int(input('nhập ví trên 1 Lần claim: '))
-
+maxclaim = int(input('nhập ví trên 1 Lần claim: '))
+day_claim = int(input('nhập số ngày claim: '))
 
 #tạo người dugnf chrome
 options = Options()
@@ -37,6 +37,19 @@ time.sleep(1)
 driver.switch_to.window(driver.window_handles[1])
 driver.get('https://cointool.app/batchMint/xen')
 
+#chỉnh dayclaim
+wait2 = WebDriverWait(driver, 1000).until(ec.presence_of_element_located((By.CSS_SELECTOR,'#app-main > div > div.resultBox > div.formBox > div:nth-child(3) > div:nth-child(2) > button')))
+driver.find_element(By.CSS_SELECTOR,'#app-main > div > div.resultBox > div.formBox > div:nth-child(3) > div:nth-child(2) > button').click()
+time.sleep(1)
+	
+dayclaim_element = driver.find_element(By.CSS_SELECTOR,'body > div.el-dialog__wrapper > div > div.el-dialog__body > div > form > div > div > div > div > input')
+WebDriverWait(driver, 60).until(ec.visibility_of(dayclaim_element))
+dayclaim_element.clear()
+dayclaim_element.send_keys(day_claim)
+time.sleep(1)
+wait2 = WebDriverWait(driver, 1000).until(ec.presence_of_element_located((By.CSS_SELECTOR,'body > div.el-dialog__wrapper > div > div.el-dialog__header > button')))
+driver.find_element(By.CSS_SELECTOR,'body > div.el-dialog__wrapper > div > div.el-dialog__header > button').click()
+time.sleep(1)
 
 #bật other
 wait2 = WebDriverWait(driver, 10).until(ec.visibility_of_element_located((By.CSS_SELECTOR,'#app-main > div > div.card > div.panal > form > div:nth-child(1) > div:nth-child(2) > div > div > div > div > span.el-switch__core')))
@@ -44,18 +57,12 @@ driver.find_element(By.CSS_SELECTOR,'#app-main > div > div.card > div.panal > fo
 
 #chỉnh maxclaim
 maxclaim_element = driver.find_element(By.CSS_SELECTOR,'#app-main > div > div.card > div.panal > form > div:nth-child(2) > div:nth-child(4) > div > div > div > div > input')
-WebDriverWait(driver, 10).until(ec.visibility_of(input_element))
-maxclaim_elemen.clear()
-maxclaim_elemen.send_keys(day_claim)
-
-
-
-
-
+WebDriverWait(driver, 10).until(ec.visibility_of(maxclaim_element))
+maxclaim_element.clear()
+maxclaim_element.send_keys(maxclaim)
 
 
 input(' chờ load ví + chinh dclaim, enter để tiếp tục')
-
 
 
 for i in range(1,1000):
@@ -99,9 +106,10 @@ for i in range(1,1000):
 
 	wait2 = WebDriverWait(driver, 20).until(ec.element_to_be_clickable(("xpath",'//*[@id="app-content"]/div/div[3]/div/div[3]/div[3]/footer/button[2]')))
 	driver.find_element("xpath",'//*[@id="app-content"]/div/div[3]/div/div[3]/div[3]/footer/button[2]').click() #confirm
-
+	time.sleep(3)
 	wait2 = WebDriverWait(driver, 1000).until(ec.visibility_of_element_located((By.CLASS_NAME,'mm-box.transaction-list__pending-transactions')))
 	print('chờ xác nhận lệnh')
+	time.sleep(1)
 	wait2 = WebDriverWait(driver, 1000).until(ec.invisibility_of_element_located((By.CLASS_NAME,'mm-box.transaction-list__pending-transactions')))
 	print('hoàn thành lệnh')
 	time.sleep(1)

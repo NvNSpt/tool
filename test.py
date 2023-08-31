@@ -12,9 +12,7 @@ from selenium.webdriver.common.action_chains import ActionChains
 import random
 
 
-
-day_claim = 1
-
+day_claim = 5
 
 #tạo người dugnf chrome
 options = Options()
@@ -24,19 +22,22 @@ driver = webdriver.Chrome(options=options)
 
 driver.get('https://cointool.app/batchMint/xen')
 
-#bật other
-wait2 = WebDriverWait(driver, 10).until(ec.visibility_of_element_located((By.CSS_SELECTOR,'#app-main > div > div.card > div.panal > form > div:nth-child(1) > div:nth-child(2) > div > div > div > div > span.el-switch__core')))
-driver.find_element(By.CSS_SELECTOR,'#app-main > div > div.card > div.panal > form > div:nth-child(1) > div:nth-child(2) > div > div > div > div > span.el-switch__core').click()
+wait = WebDriverWait(driver, 60)
+metamask_window = wait.until(ec.number_of_windows_to_be(2))
+
+time.sleep(1)
+
+# Switch sang cửa sổ MetaMask
+driver.switch_to.window(driver.window_handles[metamask_window])
 
 
-#chỉnh maxclaim
-maxclaim_element = driver.find_element(By.CSS_SELECTOR,'#app-main > div > div.card > div.panal > form > div:nth-child(2) > div:nth-child(4) > div > div > div > div > input')
+driver.get('https://cointool.app/batchMint/xen')
 
-WebDriverWait(driver, 10).until(ec.visibility_of(input_element))
+wait = WebDriverWait(driver, 60).until(ec.presence_of_element_located((By.ID, "password")))
+driver.find_element(By.ID, "password").send_keys("123123123")
+#driver.find_element("xpath",'//*[@id="app-content"]/div/div[2]/div/div/button').click()
+time.sleep(1)
 
-maxclaim_elemen.clear()
-
-maxclaim_elemen.send_keys(day_claim)
 
 
 input('tam dừng')

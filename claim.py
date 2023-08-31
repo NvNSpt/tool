@@ -73,9 +73,10 @@ for i in range(1,1000):
 
 	wait2 = WebDriverWait(driver, 20).until(ec.element_to_be_clickable(("xpath",'//*[@id="app-content"]/div/div[3]/div/div[3]/div[3]/footer/button[2]')))
 	driver.find_element("xpath",'//*[@id="app-content"]/div/div[3]/div/div[3]/div[3]/footer/button[2]').click() #confirm
-
+	time.sleep(2)
 	wait2 = WebDriverWait(driver, 1000).until(ec.visibility_of_element_located((By.CLASS_NAME,'mm-box.transaction-list__pending-transactions')))
 	print('chờ xác nhận lệnh')
+	time.sleep(1)
 	wait2 = WebDriverWait(driver, 1000).until(ec.invisibility_of_element_located((By.CLASS_NAME,'mm-box.transaction-list__pending-transactions')))
 	print('hoàn thành lệnh')
 	time.sleep(1)
