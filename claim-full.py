@@ -37,6 +37,10 @@ time.sleep(1)
 driver.switch_to.window(driver.window_handles[1])
 driver.get('https://cointool.app/batchMint/xen')
 
+#bật other
+wait2 = WebDriverWait(driver, 10).until(ec.visibility_of_element_located((By.CSS_SELECTOR,'#app-main > div > div.card > div.panal > form > div:nth-child(1) > div:nth-child(2) > div > div > div > div > span.el-switch__core')))
+driver.find_element(By.CSS_SELECTOR,'#app-main > div > div.card > div.panal > form > div:nth-child(1) > div:nth-child(2) > div > div > div > div > span.el-switch__core').click()
+
 #chỉnh dayclaim
 wait2 = WebDriverWait(driver, 1000).until(ec.presence_of_element_located((By.CSS_SELECTOR,'#app-main > div > div.resultBox > div.formBox > div:nth-child(3) > div:nth-child(2) > button')))
 driver.find_element(By.CSS_SELECTOR,'#app-main > div > div.resultBox > div.formBox > div:nth-child(3) > div:nth-child(2) > button').click()
@@ -51,9 +55,6 @@ wait2 = WebDriverWait(driver, 1000).until(ec.presence_of_element_located((By.CSS
 driver.find_element(By.CSS_SELECTOR,'body > div.el-dialog__wrapper > div > div.el-dialog__header > button').click()
 time.sleep(1)
 
-#bật other
-wait2 = WebDriverWait(driver, 10).until(ec.visibility_of_element_located((By.CSS_SELECTOR,'#app-main > div > div.card > div.panal > form > div:nth-child(1) > div:nth-child(2) > div > div > div > div > span.el-switch__core')))
-driver.find_element(By.CSS_SELECTOR,'#app-main > div > div.card > div.panal > form > div:nth-child(1) > div:nth-child(2) > div > div > div > div > span.el-switch__core').click()
 
 #chỉnh maxclaim
 maxclaim_element = driver.find_element(By.CSS_SELECTOR,'#app-main > div > div.card > div.panal > form > div:nth-child(2) > div:nth-child(4) > div > div > div > div > input')

@@ -66,6 +66,12 @@ for i in range(1,1000):
 	driver.find_element(By.CSS_SELECTOR,'#app-main > div > div.card > div:nth-child(5) > button').click()
 	time.sleep(1)
 
+	
+	#ấn remint
+	wait2 = WebDriverWait(driver, 1000).until(ec.element_to_be_clickable((By.CSS_SELECTOR,'body > div.el-message-box__wrapper > div > div.el-message-box__btns > button.el-button.el-button--default.el-button--small.el-button--primary')))
+	driver.find_element(By.CSS_SELECTOR,'body > div.el-message-box__wrapper > div > div.el-message-box__btns > button.el-button.el-button--default.el-button--small.el-button--primary').click()
+	time.sleep(1)
+
 
 	driver.switch_to.window(driver.window_handles[0])
 	#chuyển sang activity

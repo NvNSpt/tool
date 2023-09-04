@@ -111,7 +111,6 @@ for i in range(1,1000):
 	driver.find_element("xpath",'//*[@id="app-content"]/div/div[3]/div/div/div[1]/div[2]/div/ul/li[3]/button').click()
 	time.sleep(1)
 
-
 	#ấn contrackt
 	wait2 = WebDriverWait(driver, 1000).until(ec.visibility_of_element_located((By.CLASS_NAME,'mm-box.transaction-list__pending-transactions')))
 	driver.find_element(By.CLASS_NAME,'mm-box.transaction-list__pending-transactions').click()
@@ -120,11 +119,18 @@ for i in range(1,1000):
 	wait2 = WebDriverWait(driver, 20).until(ec.element_to_be_clickable(("xpath",'//*[@id="app-content"]/div/div[3]/div/div[3]/div[3]/footer/button[2]')))
 	driver.find_element("xpath",'//*[@id="app-content"]/div/div[3]/div/div[3]/div[3]/footer/button[2]').click() #confirm
 
-	wait2 = WebDriverWait(driver, 1000).until(ec.visibility_of_element_located((By.CLASS_NAME,'mm-box.transaction-list__pending-transactions')))
-	print('chờ xác nhận lệnh')
+	time.sleep(3)
+	count = count + 1
+	
+	try:
+		wait2 = WebDriverWait(driver, 10).until(ec.visibility_of_element_located((By.CLASS_NAME,'mm-box.transaction-list__pending-transactions')))
+		print('chờ xác nhận lệnh')
+	except:
+		pass
 	wait2 = WebDriverWait(driver, 1000).until(ec.invisibility_of_element_located((By.CLASS_NAME,'mm-box.transaction-list__pending-transactions')))
 	print('hoàn thành lệnh')
 	time.sleep(1)
+
 
 
 
