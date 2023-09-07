@@ -88,7 +88,7 @@ for i in range(1,1000):
 
 	driver.switch_to.window(driver.window_handles[1])
 
-	if i % 5 == 0:
+	if i % 4 == 0:
 		
 		actions = ActionChains(driver) 
 		actions.send_keys(Keys.ESCAPE) # XOÁ maxclaim number
