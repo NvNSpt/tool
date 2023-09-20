@@ -69,7 +69,7 @@ while True:
         # Tạo bản sao của thư mục sample và đổi tên thành network
         shutil.copytree(sample_path, duong_dan_moi)
 
-        print(f"Thư mục sample đã được sao chép và đổi tên thành '{name_network}'")
+        print(f"Thư mục {path} đã được đã được sao chép và đổi tên thành '{name_network}'")
         
         break
 
