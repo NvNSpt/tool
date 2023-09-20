@@ -1,3 +1,4 @@
+import subprocess
 from selenium import webdriver
 from selenium.webdriver.firefox.options import Options as FirefoxOptions
 from selenium.webdriver.common.by import By
@@ -14,16 +15,51 @@ import random
 
 
 
+
+# Tạo thông báo nhập dữ liệu theo network
+check_network = "Nhập số để chọn mạng: "
+network = open('network.txt', mode='r')
+all_file = network.readlines()
+line_number = 0
+
+for line in all_file:
+    tach_hang = line.strip().split(',')
+    path = tach_hang[0]
+    input_string = f"{line_number}({path}), "
+    check_network += input_string
+    line_number += 1
+
+network.close()
+
+print(check_network)
+
+
+#tạo ô dể nhập network
+while True:
+    try:
+        ob = int(input("Nhập mạng: "))
+        network = open('network.txt', mode='r')
+        all_file = network.readlines()
+
+        if 0 <= ob < len(all_file):
+            line = all_file[ob]
+            tach_hang = line.strip().split(',')
+            path, mint, claim = tach_hang[0], tach_hang[1], tach_hang[2]
+            print("Path:", path)
+            print("Mint:", mint)
+            print("Claim:", claim)
+            break
+        else:
+            print("Nhập mạng không hợp lệ. Vui lòng nhập lại.")
+    except ValueError:
+        print("Nhập mạng không hợp lệ. Vui lòng nhập lại.")
+network.close()
+
+
 #tạo người dugnf chrome
 options = Options()
-options.add_argument('--user-data-dir=C:\\Users\\pc\\AppData\\Local\\Google\\Chrome\\User Data')
-options.add_argument('--profile-directory=Profile 30')
-options.debugger_address="127.0.0.1:2222"
+options.debugger_address=fr"127.0.0.1:922{ob}"
 driver = webdriver.Chrome(options=options)
-
-
-
-
 
 
 for i in range(1,1000):
