@@ -2,23 +2,17 @@ import os
 import shutil
 import time
 
-
-
 # Lấy đường dẫn tới tệp Python hiện tại (script đang thực thi)
 current_script_path = os.path.abspath(__file__)
 print("Đường dẫn tới tệp Python hiện tại là:", current_script_path)
 
 chrome_path = current_script_path.replace("great-ch.py", "chrome\\")
-
-# Chuyển thành sample
 sample_path = current_script_path.replace("great-ch.py", "chrome\sample")
 
-
-
 while True:
-    name_network = input("nhập tên network cần tạo:")
-    mint =input("nhập số ví mint:")
-    claim =input("nhập số ví claim:")
+    name_network = input("Nhập tên network cần tạo:")
+    mint = input("Nhập số ví mint:")
+    claim = input("Nhập số ví claim:")
 
     # Kiểm tra xem thư mục đã tồn tại hay chưa
     if os.path.exists(os.path.join(chrome_path, name_network)):
@@ -31,14 +25,16 @@ while True:
         shutil.copytree(sample_path, duong_dan_moi)
 
         print(f"Thư mục sample đã được sao chép và đổi tên thành '{name_network}'")
-        
-        break
 
+        # Ghi thêm dữ liệu vào tệp tin
+        new_data = f"{name_network},{mint},{claim}"
+        with open("network.txt", "a") as file:
+            file.write(new_data + "\n")
 
-# Ghi thêm dữ liệu vào tệp tin
-new_data = f"{name_network},{mint},{claim}"
-with open("network.txt", "a") as file:
-    file.write(new_data + "\n" )
+        print("Đã ghi dữ liệu mới vào tệp tin network.txt.")
 
-print("Đã ghi dữ liệu mới vào tệp tin network.txt.")
-time.sleep(3)
+        create_more = input("Bạn có muốn tạo thêm network không? (y/n): ")
+        if create_more.lower() != "y":
+            break
+
+    time.sleep(3)

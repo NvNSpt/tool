@@ -52,6 +52,15 @@ while True:
         print("Nhập mạng không hợp lệ. Vui lòng nhập lại.")
 network.close()
 
+
+if ob < 10:
+	ob = "0" + str(ob)
+	print(ob)
+else:
+	ob = str(ob)
+	print(ob)
+
+
 # Lấy đường dẫn tới tệp Python hiện tại (script đang thực thi)
 current_script_path = os.path.abspath(__file__)
 current_file_name = os.path.basename(current_script_path)
@@ -62,7 +71,7 @@ chrome_run = fr"{chrome_path}{path}\App\Chrome-bin\chrome.exe "
 chrome_options = [
     "--user-data-dir=" + chrome_path + path +"\\Data\\profile",
     "--profile-directory=Default",
-    "--remote-debugging-port=922" + str(ob)
+    "--remote-debugging-port=92" + str(ob)
 ]
 cmd = [chrome_run] + chrome_options
 subprocess.Popen(cmd)
@@ -74,7 +83,7 @@ input("chờ load metamask, enter để tiếp tục")
 
 #tạo người dugnf chrome
 options = Options()
-options.debugger_address=fr"127.0.0.1:922{ob}"
+options.debugger_address=fr"127.0.0.1:92{ob}"
 driver = webdriver.Chrome(options=options)
 
 

@@ -51,9 +51,17 @@ while True:
         print("Nhập mạng không hợp lệ. Vui lòng nhập lại.")
 network.close()
 
+
+if ob < 10:
+	ob = "0" + str(ob)
+	print(ob)
+else:
+	ob = str(ob)
+	print(ob)
+
 #tạo người dugnf chrome
 options = Options()
-options.debugger_address=fr"127.0.0.1:922{ob}"
+options.debugger_address=fr"127.0.0.1:92{ob}"
 driver = webdriver.Chrome(options=options)
 acc_now = int(input('nhập số Lần cần mint: '))
 
