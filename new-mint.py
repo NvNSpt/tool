@@ -65,11 +65,6 @@ options.debugger_address=fr"127.0.0.1:92{ob}"
 driver = webdriver.Chrome(options=options)
 acc_now = int(input('nhập số Lần cần mint: '))
 
-file_count = open('count.txt', mode = 'r')
-
-count = int(file_count.read())
-
-file_count.close()
 
 
 for i in range(1,1000):
@@ -81,12 +76,9 @@ for i in range(1,1000):
 		pass
 
 
-	print(count)
-	if count > acc_now:
-		count = 1
-		file_count = open('count.txt', mode = 'w')
-		file_count.write(str(count))
-		file_count.close()
+	print(i)
+	if i > acc_now:
+		i = 1
 		hoi = input('đã xong 68 lần, có muốn tiếp tục không?')
 	else: 
 		print('nhỏ hơn 35')
@@ -103,15 +95,10 @@ for i in range(1,1000):
 	else: 
 		pass
 
+	time.sleep(2)
 	#ấn mint
 	wait2 = WebDriverWait(driver, 1000).until(ec.element_to_be_clickable((By.CSS_SELECTOR,'#app-main > div > div.card > div:nth-child(5) > button')))
 	driver.find_element(By.CSS_SELECTOR,'#app-main > div > div.card > div:nth-child(5) > button').click()
-	time.sleep(1)
-
-	
-	#ấn newmint
-	wait2 = WebDriverWait(driver, 1000).until(ec.element_to_be_clickable((By.CSS_SELECTOR,'body > div.el-message-box__wrapper > div > div.el-message-box__btns > button:nth-child(1)')))
-	driver.find_element(By.CSS_SELECTOR,'body > div.el-message-box__wrapper > div > div.el-message-box__btns > button:nth-child(1)').click()
 	time.sleep(1)
 
 
@@ -129,7 +116,7 @@ for i in range(1,1000):
 
 	wait2 = WebDriverWait(driver, 20).until(ec.element_to_be_clickable(("xpath",'//*[@id="app-content"]/div/div[3]/div/div[3]/div[3]/footer/button[2]')))
 	driver.find_element("xpath",'//*[@id="app-content"]/div/div[3]/div/div[3]/div[3]/footer/button[2]').click() #confirm
-	count = count + 1
+
 	time.sleep(3)
 	try:
 		wait2 = WebDriverWait(driver, 10).until(ec.visibility_of_element_located((By.CLASS_NAME,'mm-box.transaction-list__pending-transactions')))
@@ -156,9 +143,5 @@ for i in range(1,1000):
 	else: 
 		pass
 
-	
-	file_count = open('count.txt', mode = 'w')
-	file_count.write(str(count))
-	file_count.close()
 	
 input('done')

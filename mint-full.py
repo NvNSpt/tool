@@ -134,20 +134,19 @@ driver.find_element(By.CSS_SELECTOR,'#app-main > div > div.card > div.panal > fo
 input(' chờ load ví, enter để tiếp tục')
 
 
-file_count = open('count.txt', mode = 'r')
-
-count = int(file_count.read())
-
-file_count.close()
-
 
 for i in range(1,1000):
-	print(count)
-	if count > acc_now:
-		count = 1
-		file_count = open('count.txt', mode = 'w')
-		file_count.write(str(count))
-		file_count.close()
+
+	if i == 1:
+		driver.switch_to.window(driver.window_handles[0])
+		driver.get('chrome-extension://nkbihfbeogaeaoehlefnkodbefgpgknn/home.html')
+	else:
+		pass
+
+
+	print(i)
+	if i > acc_now:
+		i = 1
 		hoi = input('đã xong 68 lần, có muốn tiếp tục không?')
 	else: 
 		print('nhỏ hơn 35')
@@ -164,7 +163,7 @@ for i in range(1,1000):
 	else: 
 		pass
 
-	time.sleep(2)	
+	time.sleep(2)
 	#ấn mint
 	wait2 = WebDriverWait(driver, 1000).until(ec.element_to_be_clickable((By.CSS_SELECTOR,'#app-main > div > div.card > div:nth-child(5) > button')))
 	driver.find_element(By.CSS_SELECTOR,'#app-main > div > div.card > div:nth-child(5) > button').click()
@@ -172,11 +171,11 @@ for i in range(1,1000):
 
 
 	driver.switch_to.window(driver.window_handles[0])
-
 	#chuyển sang activity
 	wait2 = WebDriverWait(driver, 60).until(ec.visibility_of_element_located(("xpath",'//*[@id="app-content"]/div/div[3]/div/div/div[1]/div[2]/div/ul/li[3]/button')))
 	driver.find_element("xpath",'//*[@id="app-content"]/div/div[3]/div/div/div[1]/div[2]/div/ul/li[3]/button').click()
 	time.sleep(1)
+
 
 	#ấn contrackt
 	wait2 = WebDriverWait(driver, 1000).until(ec.visibility_of_element_located((By.CLASS_NAME,'mm-box.transaction-list__pending-transactions')))
@@ -187,19 +186,15 @@ for i in range(1,1000):
 	driver.find_element("xpath",'//*[@id="app-content"]/div/div[3]/div/div[3]/div[3]/footer/button[2]').click() #confirm
 
 	time.sleep(3)
-	count = count + 1
-	
 	try:
 		wait2 = WebDriverWait(driver, 10).until(ec.visibility_of_element_located((By.CLASS_NAME,'mm-box.transaction-list__pending-transactions')))
 		print('chờ xác nhận lệnh')
 	except:
 		pass
+
 	wait2 = WebDriverWait(driver, 1000).until(ec.invisibility_of_element_located((By.CLASS_NAME,'mm-box.transaction-list__pending-transactions')))
 	print('hoàn thành lệnh')
 	time.sleep(1)
-
-
-
 
 	if i % 10 == 0:
 		driver.get('chrome-extension://nkbihfbeogaeaoehlefnkodbefgpgknn/home.html#settings/advanced')
@@ -216,11 +211,5 @@ for i in range(1,1000):
 	else: 
 		pass
 
-	 
-
-	file_count = open('count.txt', mode = 'w')
-	file_count.write(str(count))
-	file_count.close()
 	
 input('done')
-
