@@ -89,18 +89,13 @@ for i in range(1,1000):
 
 	driver.switch_to.window(driver.window_handles[1])
 
-	if i % 4 == 0:
-		
-		actions = ActionChains(driver) 
-		actions.send_keys(Keys.ESCAPE) # XOÁ maxclaim number
-		actions.perform()
-		time.sleep(1)
-
-	else: 
-		pass
 
 	time.sleep(2)
 	#ấn mint
+	actions = ActionChains(driver) 
+	actions.send_keys(Keys.ESCAPE) # XOÁ maxclaim number
+	actions.perform()
+	
 	wait2 = WebDriverWait(driver, 1000).until(ec.element_to_be_clickable((By.CSS_SELECTOR,'#app-main > div > div.card > div:nth-child(5) > button')))
 	driver.find_element(By.CSS_SELECTOR,'#app-main > div > div.card > div:nth-child(5) > button').click()
 	time.sleep(1)
