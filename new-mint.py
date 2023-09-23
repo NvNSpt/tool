@@ -124,7 +124,7 @@ for i in range(1,1000):
 	except:
 		pass
 
-	wait2 = WebDriverWait(driver, 1000).until(ec.invisibility_of_element_located((By.CLASS_NAME,'mm-box.transaction-list__pending-transactions')))
+	wait2 = WebDriverWait(driver, 100000).until(ec.invisibility_of_element_located((By.CLASS_NAME,'mm-box.transaction-list__pending-transactions')))
 	print('hoàn thành lệnh')
 	time.sleep(1)
 
