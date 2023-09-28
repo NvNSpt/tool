@@ -73,6 +73,7 @@ driver = webdriver.Chrome(options=options)
 acc_now = int(input('nhập số Lần cần mint: '))
 
 
+
 for i in range(1,1000):
 
 	if i == 1:
@@ -91,15 +92,20 @@ for i in range(1,1000):
 
 	driver.switch_to.window(driver.window_handles[1])
 
-	time.sleep(2)
+	time.sleep(3)
 	#ấn mint
 
 	actions = ActionChains(driver) 
 	actions.send_keys(Keys.ESCAPE) # XOÁ maxclaim number
 	actions.perform()
+	time.sleep(2)
 	
-	wait2 = WebDriverWait(driver, 1000).until(ec.element_to_be_clickable((By.CSS_SELECTOR,'#app-main > div > div.card > div:nth-child(5) > button')))
-	driver.find_element(By.CSS_SELECTOR,'#app-main > div > div.card > div:nth-child(5) > button').click()
+	wait2 = WebDriverWait(driver, 60).until(ec.presence_of_element_located(("xpath",'/html/body/div/div/div/main/section/div/div[1]/div/div[3]/button')))
+	driver.find_element("xpath",'/html/body/div/div/div/main/section/div/div[1]/div/div[3]/button').click()
+	time.sleep(1)
+
+	wait2 = WebDriverWait(driver, 60).until(ec.element_to_be_clickable(("xpath",'/html/body/div[2]/div[3]/div/div[2]/button')))
+	driver.find_element("xpath",'/html/body/div[2]/div[3]/div/div[2]/button').click()
 	time.sleep(1)
 
 

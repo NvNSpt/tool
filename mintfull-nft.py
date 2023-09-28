@@ -1,4 +1,3 @@
-import subprocess
 from selenium import webdriver
 from selenium.webdriver.firefox.options import Options as FirefoxOptions
 from selenium.webdriver.common.by import By
@@ -11,9 +10,7 @@ from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support.ui import Select
 from selenium.webdriver.common.action_chains import ActionChains
 import random
-
-
-
+import subprocess
 
 
 # Tạo thông báo nhập dữ liệu theo network
@@ -63,14 +60,86 @@ else:
 	ob = str(ob)
 	print(ob)
 
+
+# Lấy đường dẫn tới tệp Python hiện tại (script đang thực thi)
+current_script_path = os.path.abspath(__file__)
+current_file_name = os.path.basename(current_script_path)
+#đổi thành đường dẫn tới chrome đã tạo
+chrome_path = current_script_path.replace(current_file_name, "chrome\\")
+#khơi chạy chrome theo port
+chrome_run = fr"{chrome_path}{path}\App\Chrome-bin\chrome.exe "
+chrome_options = [
+    "--user-data-dir=" + chrome_path + path +"\\Data\\profile",
+    "--profile-directory=Default",
+    "--remote-debugging-port=92" + str(ob)
+]
+cmd = [chrome_run] + chrome_options
+subprocess.Popen(cmd)
+
+
+
 #tạo người dugnf chrome
 options = Options()
 options.debugger_address=fr"127.0.0.1:92{ob}"
 driver = webdriver.Chrome(options=options)
-
-
+mint_number = mint
 
 acc_now = int(input('nhập số Lần cần mint: '))
+daymint = int(input('nhập số Ngày cần mint: '))
+
+
+
+#login metamask khi moi mo len
+driver.switch_to.window(driver.window_handles[0])
+driver.get('chrome-extension://nkbihfbeogaeaoehlefnkodbefgpgknn/home.html')
+wait = WebDriverWait(driver, 60).until(ec.presence_of_element_located((By.ID, "password")))
+driver.find_element("xpath",'//*[@id="password"]').send_keys("123123123")
+driver.find_element("xpath",'//*[@id="app-content"]/div/div[2]/div/div/button').click()
+time.sleep(2)
+
+#driver.switch_to.new_window()
+driver.switch_to.window(driver.window_handles[1])
+driver.get('https://xen.network/base/xenft/torrent')
+time.sleep(2)
+
+# ấn mint
+wait2 = WebDriverWait(driver, 60).until(ec.visibility_of_element_located(("xpath",'/html/body/div/div/div/main/section/div/div[1]/div/div[3]/button')))
+driver.find_element("xpath",'/html/body/div/div/div/main/section/div/div[1]/div/div[3]/button').click()
+time.sleep(1)
+
+
+#ấn max VMU
+wait2 = WebDriverWait(driver, 60).until(ec.visibility_of_element_located(("xpath",'/html/body/div[2]/div[3]/div/div[1]/div/div[2]/button')))
+driver.find_element("xpath",'/html/body/div[2]/div[3]/div/div[1]/div/div[2]/button').click()
+
+#đổi sang collector
+wait2 = WebDriverWait(driver, 60).until(ec.visibility_of_element_located(("xpath",'/html/body/div[2]/div[3]/div/div[1]/div/div[6]/div')))
+driver.find_element("xpath",'/html/body/div[2]/div[3]/div/div[1]/div/div[6]/div').click()
+
+wait2 = WebDriverWait(driver, 60).until(ec.visibility_of_element_located(("xpath",'/html/body/div[3]/div[3]/ul/li[3]')))
+driver.find_element("xpath",'/html/body/div[3]/div[3]/ul/li[3]').click()
+
+#đổi sang điền ngày
+wait2 = WebDriverWait(driver, 60).until(ec.visibility_of_element_located(("xpath",'/html/body/div[2]/div[3]/div/div[1]/div/div[3]/button')))
+driver.find_element("xpath",'/html/body/div[2]/div[3]/div/div[1]/div/div[3]/button').click()
+
+
+#chỉnh dayclaim
+
+time.sleep(1)
+actions = ActionChains(driver) 
+actions.send_keys(Keys.TAB * 1 + Keys.BACKSPACE) # XOÁ MINT
+actions.perform()
+time.sleep(1)
+dayclaim_element = driver.find_element("xpath",'/html/body/div[2]/div[3]/div/div[1]/div/div[4]/div/div/input')
+WebDriverWait(driver, 60).until(ec.visibility_of(dayclaim_element))
+dayclaim_element.send_keys(daymint)
+time.sleep(1)
+
+wait2 = WebDriverWait(driver, 60).until(ec.visibility_of_element_located(("xpath",'/html/body/div[2]/div[3]/div/div[1]/div/div[3]/button')))
+driver.find_element("xpath",'/html/body/div[2]/div[3]/div/div[1]/div/div[3]/button').click()
+
+input(' check ngày và loại nft , enter để tiếp tục')
 
 
 for i in range(1,1000):
@@ -91,15 +160,20 @@ for i in range(1,1000):
 
 	driver.switch_to.window(driver.window_handles[1])
 
-	time.sleep(2)
+	time.sleep(3)
 	#ấn mint
 
 	actions = ActionChains(driver) 
 	actions.send_keys(Keys.ESCAPE) # XOÁ maxclaim number
 	actions.perform()
+	time.sleep(2)
 	
-	wait2 = WebDriverWait(driver, 1000).until(ec.element_to_be_clickable((By.CSS_SELECTOR,'#app-main > div > div.card > div:nth-child(5) > button')))
-	driver.find_element(By.CSS_SELECTOR,'#app-main > div > div.card > div:nth-child(5) > button').click()
+	wait2 = WebDriverWait(driver, 60).until(ec.presence_of_element_located(("xpath",'/html/body/div/div/div/main/section/div/div[1]/div/div[3]/button')))
+	driver.find_element("xpath",'/html/body/div/div/div/main/section/div/div[1]/div/div[3]/button').click()
+	time.sleep(1)
+
+	wait2 = WebDriverWait(driver, 60).until(ec.element_to_be_clickable(("xpath",'/html/body/div[2]/div[3]/div/div[2]/button')))
+	driver.find_element("xpath",'/html/body/div[2]/div[3]/div/div[2]/button').click()
 	time.sleep(1)
 
 

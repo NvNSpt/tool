@@ -1,3 +1,4 @@
+import subprocess
 from selenium import webdriver
 from selenium.webdriver.firefox.options import Options as FirefoxOptions
 from selenium.webdriver.common.by import By
@@ -10,7 +11,9 @@ from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support.ui import Select
 from selenium.webdriver.common.action_chains import ActionChains
 import random
-import subprocess
+
+
+
 
 
 # Tạo thông báo nhập dữ liệu theo network
@@ -70,7 +73,6 @@ driver = webdriver.Chrome(options=options)
 acc_now = int(input('nhập số Lần cần mint: '))
 
 
-
 for i in range(1,1000):
 
 	if i == 1:
@@ -89,15 +91,21 @@ for i in range(1,1000):
 
 	driver.switch_to.window(driver.window_handles[1])
 
-
 	time.sleep(2)
 	#ấn mint
+
 	actions = ActionChains(driver) 
 	actions.send_keys(Keys.ESCAPE) # XOÁ maxclaim number
 	actions.perform()
 	
 	wait2 = WebDriverWait(driver, 1000).until(ec.element_to_be_clickable((By.CSS_SELECTOR,'#app-main > div > div.card > div:nth-child(5) > button')))
 	driver.find_element(By.CSS_SELECTOR,'#app-main > div > div.card > div:nth-child(5) > button').click()
+	time.sleep(1)
+
+	
+	#ấn remint
+	wait2 = WebDriverWait(driver, 1000).until(ec.element_to_be_clickable((By.CSS_SELECTOR,'body > div.el-message-box__wrapper > div > div.el-message-box__btns > button.el-button.el-button--default.el-button--small.el-button--primary')))
+	driver.find_element(By.CSS_SELECTOR,'body > div.el-message-box__wrapper > div > div.el-message-box__btns > button.el-button.el-button--default.el-button--small.el-button--primary').click()
 	time.sleep(1)
 
 
