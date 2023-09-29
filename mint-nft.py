@@ -92,7 +92,7 @@ for i in range(1,1000):
 
 	driver.switch_to.window(driver.window_handles[1])
 
-	time.sleep(3)
+	time.sleep(4)
 	#ấn mint
 
 	actions = ActionChains(driver) 
