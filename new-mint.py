@@ -1,3 +1,4 @@
+import subprocess
 from selenium import webdriver
 from selenium.webdriver.firefox.options import Options as FirefoxOptions
 from selenium.webdriver.common.by import By
@@ -10,7 +11,10 @@ from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support.ui import Select
 from selenium.webdriver.common.action_chains import ActionChains
 import random
-import subprocess
+
+
+
+
 
 # Tạo thông báo nhập dữ liệu theo network
 check_network = "Nhập số để chọn mạng: "
@@ -63,8 +67,10 @@ else:
 options = Options()
 options.debugger_address=fr"127.0.0.1:92{ob}"
 driver = webdriver.Chrome(options=options)
-acc_now = int(input('nhập số Lần cần mint: '))
 
+
+
+acc_now = int(input('nhập số Lần cần mint: '))
 
 
 for i in range(1,1000):
@@ -94,6 +100,12 @@ for i in range(1,1000):
 	
 	wait2 = WebDriverWait(driver, 1000).until(ec.element_to_be_clickable((By.CSS_SELECTOR,'#app-main > div > div.card > div:nth-child(5) > button')))
 	driver.find_element(By.CSS_SELECTOR,'#app-main > div > div.card > div:nth-child(5) > button').click()
+	time.sleep(1)
+
+	
+	#ấn newmint
+	wait2 = WebDriverWait(driver, 1000).until(ec.element_to_be_clickable((By.CSS_SELECTOR,'body > div.el-message-box__wrapper > div > div.el-message-box__btns > button:nth-child(1)')))
+	driver.find_element(By.CSS_SELECTOR,'body > div.el-message-box__wrapper > div > div.el-message-box__btns > button:nth-child(1)').click()
 	time.sleep(1)
 
 
