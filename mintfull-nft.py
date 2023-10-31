@@ -92,6 +92,7 @@ daymint = int(input('nhập số Ngày cần mint: '))
 #login metamask khi moi mo len
 driver.switch_to.window(driver.window_handles[0])
 driver.get('chrome-extension://nkbihfbeogaeaoehlefnkodbefgpgknn/home.html')
+input("chờ load metamask, enter để tiếp tục")
 wait = WebDriverWait(driver, 60).until(ec.presence_of_element_located((By.ID, "password")))
 driver.find_element("xpath",'//*[@id="password"]').send_keys("123123123")
 driver.find_element("xpath",'//*[@id="app-content"]/div/div[2]/div/div/button').click()
