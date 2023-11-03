@@ -84,6 +84,10 @@ options.debugger_address=fr"127.0.0.1:92{ob}"
 driver = webdriver.Chrome(options=options)
 mint_number = mint
 
+
+if len(driver.window_handles) < 2:
+	driver.switch_to.new_window()
+	
 acc_now = int(input('nhập số Lần cần mint: '))
 daymint = int(input('nhập số Ngày cần mint: '))
 

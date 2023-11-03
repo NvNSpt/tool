@@ -85,6 +85,9 @@ options.debugger_address=fr"127.0.0.1:92{ob}"
 driver = webdriver.Chrome(options=options)
 
 
+if len(driver.window_handles) < 2:
+	driver.switch_to.new_window()
+
 maxclaim = claim
 day_claim = int(input('nhập số ngày claim: '))
 
@@ -92,8 +95,8 @@ day_claim = int(input('nhập số ngày claim: '))
 #login metamask khi moi mo len
 driver.switch_to.window(driver.window_handles[0])
 driver.get('chrome-extension://nkbihfbeogaeaoehlefnkodbefgpgknn/home.html')
-input("chờ load metamask, enter để tiếp tục")
-wait = WebDriverWait(driver, 60).until(ec.visibility_of_element_located(("xpath",'//*[@id="password"]')))
+time.sleep(5)
+wait = WebDriverWait(driver, 60).until(ec.presence_of_element_located(("xpath",'//*[@id="password"]')))
 driver.find_element("xpath",'//*[@id="password"]').send_keys("123123123")
 driver.find_element("xpath",'//*[@id="app-content"]/div/div[2]/div/div/button').click()
 time.sleep(1)
@@ -101,6 +104,14 @@ time.sleep(1)
 #driver.switch_to.new_window()
 driver.switch_to.window(driver.window_handles[1])
 driver.get('https://cointool.app/batchMint/xen')
+
+
+input("kiểm tra ví, import ví nếu chưa có ví, enter để tiếp tục")
+
+#driver.switch_to.new_window()
+driver.switch_to.window(driver.window_handles[1])
+driver.get('https://cointool.app/batchMint/xen')
+
 
 #bật other
 wait2 = WebDriverWait(driver, 10).until(ec.visibility_of_element_located((By.CSS_SELECTOR,'#app-main > div > div.card > div.panal > form > div:nth-child(1) > div:nth-child(2) > div > div > div > div > span.el-switch__core')))
